@@ -66,9 +66,13 @@ class FuncDef:
         arg_type = type_normalize(arg_type)
         if arg_name.startswith("**"):
             arg_type += " **"
+            arg_name = arg_name[2:]
         elif arg_name.startswith("*"):
             arg_type += " *"
-        self.args.append(arg_type)
+            arg_name = arg_name[1:]
+        if arg_name == "" and "png_struct" in arg_type:
+            arg_name = "png_ptr"
+        self.args.append([arg_type, arg_name])
 
     def is_callback(self):
         return self.macro_type == MacroType.CALLBACK or self.macro_type == MacroType.FUNCTION
@@ -78,21 +82,70 @@ class FuncDef:
             name = self.name
         else:
             name = "*PFN_" + self.name
-        return f"typedef {self.return_type} ({name})({", ".join(self.args)});"
+        return f"typedef {self.return_type} ({name})({", ".join([a[0] for a in self.args])});"
+
+    def get_group(self):
+        if self.name.endswith("_ver") or "_version" in self.name:
+            return "versioning"
+        elif "jmp" in self.name or "error" in self.name or "warning" in self.name:
+            return "error"
+        elif "progressive" in self.name or "process" in self.name:
+            return "progressive"
+        elif "compression" in self.name and not "type" in self.name:
+            return "zlib"
+        elif "png_struct *" in self.return_type or "png_struct *" in self.args[0][0]:
+            if "alloc" in self.name or "free" in self.name or "_mem" in self.name:
+                return "memory"
+            elif "_read_" in self.name:
+                return "reader"
+            elif "_write_" in self.name:
+                return "writer"
+            elif "_get_" in self.name:
+                return "getter"
+            elif "_set_" in self.name or "_init_" in self.name:
+                return "setter"
+        elif "png_image *" in self.return_type or "png_image *" in self.args[0][0]:
+            return "simple_api"
+        return "other"
 
     def get_def(self):
         desc = (
             "/**\n"
             " * TODO\n"
         )
-        if self.return_type != "void":
+        for arg in self.args:
+            if arg[0] == "void":
+                continue
+            if "png_struct *" in arg[0]:
+                desc += f" * @param {arg[1]} png_struct instance\n"
+            elif "png_image *" in arg[0]:
+                desc += f" * @param {arg[1]} png_image instance\n"
+            else:
+                a, _ = split_in_two(arg[1], "[")
+                desc += f" * @param {a} TODO\n"
+        if "png_struct *" in self.return_type:
+            desc += " * @return png_struct instance\n"
+        elif "png_image *" in self.return_type:
+            desc += " * @return png_image instance\n"
+        elif self.return_type != "void":
             desc += " * @return TODO\n"
-        if not (len(self.args) == 1 and self.args[0] == "void"):
-            desc += " * @param TODO\n" * len(self.args)
+
+        if "_info_" in self.name:
+            desc += " * @memberof png_info\n"
+        elif "png_struct *" in self.return_type or "png_struct *" in self.args[0][0]:
+            desc += " * @memberof png_struct\n"
+        elif "png_image *" in self.return_type or "png_image *" in self.args[0][0]:
+            desc += " * @memberof png_image\n"
+        desc += f" * @ingroup {self.get_group()}\n"
+
+        def arg_to_str(t, name):
+            if t[-1] == "*":
+                return t + name
+            return t + " " + name
         desc += (
-            " * @version unknown\n"
+            " * @since unknown\n"
             " */\n"
-            f"{self.return_type} {self.name}({", ".join(self.args)})\n"
+            f"{arg_to_str(self.return_type, self.name)}({", ".join([arg_to_str(a[0], a[1]) for a in self.args])});\n"
         )
         return desc
 
@@ -143,6 +196,7 @@ class FuncDef:
                     if line[i] == ",":
                         arg, line = split_in_two(line, ",")
                         if self.skip_first_arg:
+                            self.args[-1][1] = arg
                             self.skip_first_arg = False
                         else:
                             self.append_arg(arg)
@@ -198,9 +252,22 @@ class StructDef:
         return False
 
     def get_typedef(self):
-        typedef_str = self.first_line + " {\n"
+        typedef_str = (
+            "/**\n"
+            " * TODO\n"
+            f" * @struct {self.name}\n"
+        )
+        if self.name == "png_image":
+            typedef_str += " * @ingroup simple_api\n"
+        typedef_str += " */\n"
+        typedef_str += "typedef struct " + self.name + " {\n"
         for member in self.members:
-            typedef_str += f"    {member[0]} {member[1]};\n"
+            typedef_str += (
+                "    /**\n"
+                "     * TODO\n"
+                "     */\n"
+                f"    {member[0]} {member[1]};\n"
+            )
         typedef_str += "} " + self.name + ";\n"
         return typedef_str
 
@@ -355,8 +422,26 @@ class HeaderGenerator:
 
             outfile.write(macro_line + "\n")
 
+            def get_macro_group(name):
+                if "_ver" in name or "_VER" in name:
+                    return "versioning"
+                if "_jmp" in name:
+                    return "error"
+                return "macro"
+
             for m in self.macros:
-                outfile.write(f"#define {m}\n")
+                name, _ = split_in_two(m, " ")
+                name, _ = split_in_two(name, "(")
+                if "_BUILD_" in name or name == "PNG_H":
+                    continue
+                outfile.write(
+                    "/**\n"
+                    " * TODO\n"
+                    f" * @def {name}\n"
+                    f" * @ingroup {get_macro_group(name)}\n"
+                    " */\n"
+                    f"#define {m}\n"
+                )
 
             outfile.write(
                 "\n"
@@ -382,7 +467,7 @@ def get_args():
     parser.add_argument("--png_h", default=None, type=str, help="path to png.h")
     parser.add_argument("--base_h", default=None, type=str, help="path to libpng-api-document-base.h")
     parser.add_argument("--generated_h", default=None, type=str, help="path to libpng-api-document-generated.h")
-    parser.add_argument("--overwrite_loader", action='store_true',
+    parser.add_argument("--overwrite_document", action='store_true',
         help="overwrite libpng-api-document.h instead of generating libpng-api-document-generated.h")
     parser.add_argument(
         "--remove_keywords",
@@ -407,11 +492,11 @@ if __name__ == "__main__":
     # Set default paths
     base_dir = os.path.dirname(os.path.abspath(__file__))
     if png_h is None:
-        png_h = os.path.join(base_dir, "png.h")
+        png_h = os.path.join(base_dir, "libpng", "png.h")
     if base_h is None:
         base_h = os.path.join(base_dir, "libpng-api-document-base.h")
     if generated_h is None:
-        if args.overwrite_loader:
+        if args.overwrite_document:
             generated_h = os.path.join(os.path.dirname(base_dir), "libpng-api-document.h")
         else:
             generated_h = os.path.join(base_dir, "libpng-api-document-generated.h")

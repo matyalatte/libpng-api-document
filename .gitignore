@@ -4,3 +4,6 @@
 *.txt
 libpng-api-document-generated.h
 png.h
+
+# built files
+docs/html

@@ -7,6 +7,26 @@
 #include <stdio.h>
 #include <time.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// ------ Pages ------
+/**
+ * @defgroup simple_api Simplified API
+ * @defgroup reader Reader
+ * @defgroup writer Writer
+ * @defgroup setter Setter
+ * @defgroup getter Getter
+ * @defgroup progressive Progressive Read
+ * @defgroup error Error Handling
+ * @defgroup memory Memory Management
+ * @defgroup zlib Zlib Options
+ * @defgroup versioning Versioning
+ * @defgroup other Others
+ * @defgroup macro Macros
+ */
+
 // ------ Structs ------
 
 typedef void png_void;
@@ -21,11 +41,17 @@ typedef size_t png_alloc_size_t;
 typedef png_int_32 png_fixed_point;
 typedef double png_double;
 
-typedef struct png_struct_def png_struct;
-typedef struct png_info_def png_info;
-typedef struct png_control_def png_control;
+typedef struct png_struct {
+} png_struct;
+
+typedef struct png_info {
+} png_info;
+
+typedef struct png_control {
+} png_control;
 
 // deprecated pointer type aliases
+
 typedef void                  * png_voidp;
 typedef const void            * png_const_voidp;
 typedef png_byte              * png_bytep;
@@ -57,21 +83,22 @@ typedef png_fixed_point **png_fixed_point_pp;
 typedef double          **png_doublepp;
 typedef char ***png_charppp;
 typedef FILE *png_FILE_p;
-
 typedef png_struct *png_structp;
 typedef const png_struct *png_const_structp;
 typedef png_struct **png_structpp;
 typedef png_struct *png_structrp;
 typedef const png_struct *png_const_structrp;
-
 typedef png_info *png_infop;
 typedef const png_info *png_const_infop;
 typedef png_info **png_infopp;
 typedef png_info *png_inforp;
 typedef const png_info *png_const_inforp;
-
 typedef png_control *png_controlp;
 
 // ------ Macros ------
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // LIBPNG_API_DOCUMENT_H

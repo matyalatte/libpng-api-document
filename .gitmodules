@@ -1,0 +1,6 @@
+[submodule "docs/doxygen-awesome-css"]
+	path = docs/doxygen-awesome-css
+	url = https://github.com/jothepro/doxygen-awesome-css.git
+[submodule "script/libpng"]
+	path = script/libpng
+	url = https://github.com/pnggroup/libpng.git
