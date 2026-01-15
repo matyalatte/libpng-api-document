@@ -1,0 +1,6 @@
+# scripts
+*.bat
+*.sh
+*.txt
+libpng-api-document-generated.h
+png.h
