@@ -3,6 +3,7 @@
 *.sh
 *.txt
 libpng-api-document-generated.h
+MANUAL_GENERATED.md
 png.h
 
 # built files
