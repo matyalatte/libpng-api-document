@@ -945,7 +945,7 @@ WARN_LOGFILE           =
 
 INPUT                  = ./libpng-api-document.h \
                          ./docs/README.md \
-                         ./docs/MANUAL.md \
+                         ./docs/manual \
                          ./docs/Doxygen.md
 
 # This tag can be used to specify the character encoding of the source files

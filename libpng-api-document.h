@@ -13,8 +13,8 @@ extern "C" {
 // ------ Pages ------
 /**
  * @defgroup simple_api Simplified API
- * @defgroup reader Reader
- * @defgroup writer Writer
+ * @defgroup reader Reading
+ * @defgroup writer Writing
  * @defgroup setter Setter
  * @defgroup getter Getter
  * @defgroup progressive Progressive Read
