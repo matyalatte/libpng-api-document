@@ -1,8 +1,8 @@
 # libpng-api-document
 unofficial API reference for libpng
 
-> [!warning]
-> libpng-api-document is a work in progress. Many functions are not yet documented. Contributions via pull requests are welcome.
+\warning
+libpng-api-document is a work in progress. Many functions are not yet documented. Contributions via pull requests are welcome.
 
 ## About
 
@@ -16,30 +16,30 @@ This project aims to fill in the `@brief` and `@since` attributes for each API.
 ### Manual
 [libpng-manual.txt](https://github.com/pnggroup/libpng/blob/v1.6.54/libpng-manual.txt) in markdown format.
 
-1. Introduction
-2. Structures
-3. Reading
-4. Writing
-5. Simplified API
-6. Modifying/Customizing libpng
-7. MNG support
-8. Changes
-9. Contributing
+1. \ref introduction "Introduction"
+2. \ref structures "Structures"
+3. \ref reading "Reading"
+4. \ref writing "Writing"
+5. \ref simplified_api "Simplified API"
+6. \ref customizing "Modifying/Customizing libpng"
+7. \ref mng "MNG support"
+8. \ref changes "Changes"
+9. \ref contributing "Contributing"
 
 ### API Reference
 
-- Simplified API
-- Reading
-- Wrting
-- Setter
-- Getter
-- Progressive Read
-- Error Handling
-- Memory Management
-- Zlib Options
-- Versioning
-- Others
-- Macros
+- \ref simple_api
+- \ref reader
+- \ref writer
+- \ref setter
+- \ref getter
+- \ref progressive
+- \ref error
+- \ref memory
+- \ref zlib
+- \ref versioning
+- \ref other
+- \ref macro
 
 ## Doxygen
 
