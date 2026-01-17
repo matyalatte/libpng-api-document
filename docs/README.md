@@ -16,30 +16,30 @@ This project aims to fill in the `@brief` and `@since` attributes for each API.
 ### Manual
 [libpng-manual.txt](https://github.com/pnggroup/libpng/blob/v1.6.54/libpng-manual.txt) in markdown format.
 
-1. Introduction
-2. Structures
-3. Reading
-4. Writing
-5. Simplified API
-6. Modifying/Customizing libpng
-7. MNG support
-8. Changes
-9. Contributing
+1. [Introduction](https://matyalatte.github.io/libpng-api-document/introduction.html)
+2. [Structures](https://matyalatte.github.io/libpng-api-document/structures.html)
+3. [Reading](https://matyalatte.github.io/libpng-api-document/reading.html)
+4. [Writing](https://matyalatte.github.io/libpng-api-document/writing.html)
+5. [Simplified API](https://matyalatte.github.io/libpng-api-document/simplified_api.html)
+6. [Modifying/Customizing libpng](https://matyalatte.github.io/libpng-api-document/customizing.html)
+7. [MNG support](https://matyalatte.github.io/libpng-api-document/mng.html)
+8. [Changes](https://matyalatte.github.io/libpng-api-document/changes.html)
+9. [Contributing](https://matyalatte.github.io/libpng-api-document/contributing.html)
 
 ### API Reference
 
-- Simplified API
-- Reading
-- Wrting
-- Setter
-- Getter
-- Progressive Read
-- Error Handling
-- Memory Management
-- Zlib Options
-- Versioning
-- Others
-- Macros
+- [Simplified API](https://matyalatte.github.io/libpng-api-document/group__simple__api.html)
+- [Reading](https://matyalatte.github.io/libpng-api-document/group__reader.html)
+- [Wrting](https://matyalatte.github.io/libpng-api-document/group__writer.html)
+- [Setter](https://matyalatte.github.io/libpng-api-document/group__setter.html)
+- [Getter](https://matyalatte.github.io/libpng-api-document/group__getter.html)
+- [Progressive Read](https://matyalatte.github.io/libpng-api-document/group__progressive.html)
+- [Error Handling](https://matyalatte.github.io/libpng-api-document/group__error.html)
+- [Memory Management](https://matyalatte.github.io/libpng-api-document/group__memory.html)
+- [Zlib Options](https://matyalatte.github.io/libpng-api-document/group__zlib.html)
+- [Versioning](https://matyalatte.github.io/libpng-api-document/group__versioning.html)
+- [Others](https://matyalatte.github.io/libpng-api-document/group__other.html)
+- [Macros](https://matyalatte.github.io/libpng-api-document/group__macro.html)
 
 ## Doxygen
 
