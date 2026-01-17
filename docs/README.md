@@ -30,7 +30,7 @@ This project aims to fill in the `@brief` and `@since` attributes for each API.
 
 - [Simplified API](https://matyalatte.github.io/libpng-api-document/group__simple__api.html)
 - [Reading](https://matyalatte.github.io/libpng-api-document/group__reader.html)
-- [Wrting](https://matyalatte.github.io/libpng-api-document/group__writer.html)
+- [Writing](https://matyalatte.github.io/libpng-api-document/group__writer.html)
 - [Setter](https://matyalatte.github.io/libpng-api-document/group__setter.html)
 - [Getter](https://matyalatte.github.io/libpng-api-document/group__getter.html)
 - [Progressive Read](https://matyalatte.github.io/libpng-api-document/group__progressive.html)
