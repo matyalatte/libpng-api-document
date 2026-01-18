@@ -13,7 +13,7 @@ extern "C" {
 // ------ Pages ------
 /**
  * @defgroup simple_api Simplified API
- * @brief Functions to hide the details of both libpng and the PNG format.
+ * @brief PNG IO with hiding the details of libpng and file format.
  * @details See the manual: \ref simplified_api "Simplified API"
  */
 /**
@@ -388,6 +388,7 @@ typedef png_row_info *png_row_infop;  // deprecated
  * TODO
  * @struct png_image
  * @ingroup simple_api
+ * @since 1.6.0
  */
 typedef struct png_image {
     /**
@@ -1720,147 +1721,171 @@ typedef png_image *png_imagep;  // deprecated
     ? -((png_int_32)(((png_get_uint_32(buf)^0xffffffffU)+1U)&0x7fffffffU)) \
     : (png_int_32)png_get_uint_32(buf)))
 /**
- * TODO
+ * The value of png_image::version
  * @def PNG_IMAGE_VERSION
- * @ingroup versioning
+ * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_VERSION 1
 /**
- * TODO
+ * Warning flag for png_image::warning_or_error
  * @def PNG_IMAGE_WARNING
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_WARNING 1
 /**
- * TODO
+ * Error flag for png_image::warning_or_error
  * @def PNG_IMAGE_ERROR
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_ERROR 2
 /**
  * TODO
  * @def PNG_IMAGE_FAILED
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_FAILED(png_cntrl) ((((png_cntrl).warning_or_error)&0x03)>1)
 /**
  * TODO
  * @def PNG_FORMAT_FLAG_ALPHA
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_FLAG_ALPHA    0x01U
 /**
  * TODO
  * @def PNG_FORMAT_FLAG_COLOR
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_FLAG_COLOR    0x02U
 /**
  * TODO
  * @def PNG_FORMAT_FLAG_LINEAR
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_FLAG_LINEAR   0x04U
 /**
  * TODO
  * @def PNG_FORMAT_FLAG_COLORMAP
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_FLAG_COLORMAP 0x08U
 /**
  * TODO
  * @def PNG_FORMAT_FLAG_BGR
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_FLAG_BGR    0x10U
 /**
  * TODO
  * @def PNG_FORMAT_FLAG_AFIRST
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_FLAG_AFIRST 0x20U
 /**
  * TODO
  * @def PNG_FORMAT_FLAG_ASSOCIATED_ALPHA
  * @ingroup macro
+ * @since 1.6.33
  */
 #define PNG_FORMAT_FLAG_ASSOCIATED_ALPHA 0x40U
 /**
  * TODO
  * @def PNG_FORMAT_GRAY
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_GRAY 0
 /**
  * TODO
  * @def PNG_FORMAT_GA
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_GA   PNG_FORMAT_FLAG_ALPHA
 /**
  * TODO
  * @def PNG_FORMAT_AG
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_AG   (PNG_FORMAT_GA|PNG_FORMAT_FLAG_AFIRST)
 /**
  * TODO
  * @def PNG_FORMAT_RGB
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_RGB  PNG_FORMAT_FLAG_COLOR
 /**
  * TODO
  * @def PNG_FORMAT_BGR
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_BGR  (PNG_FORMAT_FLAG_COLOR|PNG_FORMAT_FLAG_BGR)
 /**
  * TODO
  * @def PNG_FORMAT_RGBA
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_RGBA (PNG_FORMAT_RGB|PNG_FORMAT_FLAG_ALPHA)
 /**
  * TODO
  * @def PNG_FORMAT_ARGB
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_ARGB (PNG_FORMAT_RGBA|PNG_FORMAT_FLAG_AFIRST)
 /**
  * TODO
  * @def PNG_FORMAT_BGRA
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_BGRA (PNG_FORMAT_BGR|PNG_FORMAT_FLAG_ALPHA)
 /**
  * TODO
  * @def PNG_FORMAT_ABGR
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_ABGR (PNG_FORMAT_BGRA|PNG_FORMAT_FLAG_AFIRST)
 /**
  * TODO
  * @def PNG_FORMAT_LINEAR_Y
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_LINEAR_Y PNG_FORMAT_FLAG_LINEAR
 /**
  * TODO
  * @def PNG_FORMAT_LINEAR_Y_ALPHA
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_LINEAR_Y_ALPHA (PNG_FORMAT_FLAG_LINEAR|PNG_FORMAT_FLAG_ALPHA)
 /**
  * TODO
  * @def PNG_FORMAT_LINEAR_RGB
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_LINEAR_RGB (PNG_FORMAT_FLAG_LINEAR|PNG_FORMAT_FLAG_COLOR)
 /**
  * TODO
  * @def PNG_FORMAT_LINEAR_RGB_ALPHA
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_LINEAR_RGB_ALPHA \
     (PNG_FORMAT_FLAG_LINEAR|PNG_FORMAT_FLAG_COLOR|PNG_FORMAT_FLAG_ALPHA)
@@ -1868,42 +1893,49 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_FORMAT_RGB_COLORMAP
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_RGB_COLORMAP  (PNG_FORMAT_RGB|PNG_FORMAT_FLAG_COLORMAP)
 /**
  * TODO
  * @def PNG_FORMAT_BGR_COLORMAP
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_BGR_COLORMAP  (PNG_FORMAT_BGR|PNG_FORMAT_FLAG_COLORMAP)
 /**
  * TODO
  * @def PNG_FORMAT_RGBA_COLORMAP
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_RGBA_COLORMAP (PNG_FORMAT_RGBA|PNG_FORMAT_FLAG_COLORMAP)
 /**
  * TODO
  * @def PNG_FORMAT_ARGB_COLORMAP
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_ARGB_COLORMAP (PNG_FORMAT_ARGB|PNG_FORMAT_FLAG_COLORMAP)
 /**
  * TODO
  * @def PNG_FORMAT_BGRA_COLORMAP
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_BGRA_COLORMAP (PNG_FORMAT_BGRA|PNG_FORMAT_FLAG_COLORMAP)
 /**
  * TODO
  * @def PNG_FORMAT_ABGR_COLORMAP
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_FORMAT_ABGR_COLORMAP (PNG_FORMAT_ABGR|PNG_FORMAT_FLAG_COLORMAP)
 /**
  * TODO
  * @def PNG_IMAGE_SAMPLE_CHANNELS
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_SAMPLE_CHANNELS(fmt)\
     (((fmt)&(PNG_FORMAT_FLAG_COLOR|PNG_FORMAT_FLAG_ALPHA))+1)
@@ -1911,6 +1943,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_SAMPLE_COMPONENT_SIZE
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_SAMPLE_COMPONENT_SIZE(fmt)\
     ((((fmt) & PNG_FORMAT_FLAG_LINEAR) >> 2)+1)
@@ -1918,6 +1951,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_SAMPLE_SIZE
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_SAMPLE_SIZE(fmt)\
     (PNG_IMAGE_SAMPLE_CHANNELS(fmt) * PNG_IMAGE_SAMPLE_COMPONENT_SIZE(fmt))
@@ -1925,6 +1959,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_MAXIMUM_COLORMAP_COMPONENTS
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_MAXIMUM_COLORMAP_COMPONENTS(fmt)\
     (PNG_IMAGE_SAMPLE_CHANNELS(fmt) * 256)
@@ -1932,6 +1967,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_PIXEL_
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_PIXEL_(test,fmt)\
     (((fmt)&PNG_FORMAT_FLAG_COLORMAP)?1:test(fmt))
@@ -1939,6 +1975,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_PIXEL_CHANNELS
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_PIXEL_CHANNELS(fmt)\
     PNG_IMAGE_PIXEL_(PNG_IMAGE_SAMPLE_CHANNELS,fmt)
@@ -1946,6 +1983,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_PIXEL_COMPONENT_SIZE
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_PIXEL_COMPONENT_SIZE(fmt)\
     PNG_IMAGE_PIXEL_(PNG_IMAGE_SAMPLE_COMPONENT_SIZE,fmt)
@@ -1953,12 +1991,14 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_PIXEL_SIZE
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_PIXEL_SIZE(fmt) PNG_IMAGE_PIXEL_(PNG_IMAGE_SAMPLE_SIZE,fmt)
 /**
  * TODO
  * @def PNG_IMAGE_ROW_STRIDE
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_ROW_STRIDE(image)\
     (PNG_IMAGE_PIXEL_CHANNELS((image).format) * (image).width)
@@ -1966,6 +2006,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_BUFFER_SIZE
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_BUFFER_SIZE(image, row_stride)\
     (PNG_IMAGE_PIXEL_COMPONENT_SIZE((image).format)*(image).height*(row_stride))
@@ -1973,6 +2014,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_SIZE
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_SIZE(image)\
     PNG_IMAGE_BUFFER_SIZE(image, PNG_IMAGE_ROW_STRIDE(image))
@@ -1980,6 +2022,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_COLORMAP_SIZE
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_COLORMAP_SIZE(image)\
     (PNG_IMAGE_SAMPLE_SIZE((image).format) * (image).colormap_entries)
@@ -1987,24 +2030,29 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_FLAG_COLORSPACE_NOT_sRGB
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_FLAG_COLORSPACE_NOT_sRGB 0x01
 /**
  * TODO
  * @def PNG_IMAGE_FLAG_FAST
  * @ingroup macro
+ * @since 1.6.0
  */
 #define PNG_IMAGE_FLAG_FAST 0x02
 /**
  * TODO
  * @def PNG_IMAGE_FLAG_16BIT_sRGB
  * @ingroup macro
+ * @since 1.6.1
  */
 #define PNG_IMAGE_FLAG_16BIT_sRGB 0x04
 /**
  * TODO
  * @def png_image_write_get_memory_size
- * @ingroup macro
+ * @memberof png_image
+ * @ingroup simple_api
+ * @since 1.6.22
  */
 #define png_image_write_get_memory_size(image, size, convert_to_8_bit, buffer,\
     row_stride, colormap)\
@@ -2014,18 +2062,20 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_DATA_SIZE
  * @ingroup macro
+ * @since 1.6.22
  */
 #define PNG_IMAGE_DATA_SIZE(image) (PNG_IMAGE_SIZE(image)+(image).height)
 /**
  * TODO
  * @def PNG_ZLIB_MAX_SIZE
- * @ingroup macro
+ * @ingroup 1.6.22
  */
 #define PNG_ZLIB_MAX_SIZE(b) ((b)+(((b)+7U)>>3)+(((b)+63U)>>6)+11U)
 /**
  * TODO
  * @def PNG_IMAGE_COMPRESSED_SIZE_MAX
  * @ingroup macro
+ * @since 1.6.22
  */
 #define PNG_IMAGE_COMPRESSED_SIZE_MAX(image)\
     PNG_ZLIB_MAX_SIZE((png_alloc_size_t)PNG_IMAGE_DATA_SIZE(image))
@@ -2033,6 +2083,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_PNG_SIZE_MAX_
  * @ingroup macro
+ * @since 1.6.22
  */
 #define PNG_IMAGE_PNG_SIZE_MAX_(image, image_size)\
     ((8U/*sig*/+25U/*IHDR*/+16U/*gAMA*/+44U/*cHRM*/+12U/*IEND*/+\
@@ -2045,6 +2096,7 @@ typedef png_image *png_imagep;  // deprecated
  * TODO
  * @def PNG_IMAGE_PNG_SIZE_MAX
  * @ingroup macro
+ * @since unknown
  */
 #define PNG_IMAGE_PNG_SIZE_MAX(image)\
     PNG_IMAGE_PNG_SIZE_MAX_(image, PNG_IMAGE_COMPRESSED_SIZE_MAX(image))
@@ -4989,41 +5041,41 @@ void png_set_check_for_invalid_index(png_struct *png_ptr, int allowed);
 int png_get_palette_max(const png_struct *png_ptr, const png_info *info_ptr);
 
 /**
- * TODO
+ * @brief Read the PNG header from a file.
  * @param image png_image instance
- * @param file_name TODO
- * @return TODO
+ * @param file_name path to a PNG file
+ * @return 1 if PNG header was read successfully, 0 otherwise.
  * @memberof png_image
  * @ingroup simple_api
- * @since unknown
+ * @since 1.6.0
  */
 int png_image_begin_read_from_file(png_image *image, const char *file_name);
 
 /**
- * TODO
+ * @brief Read the PNG header from a FILE object.
  * @param image png_image instance
- * @param file TODO
- * @return TODO
+ * @param file A pointer of FILE object
+ * @return 1 if PNG header was read successfully, 0 otherwise.
  * @memberof png_image
  * @ingroup simple_api
- * @since unknown
+ * @since 1.6.0
  */
 int png_image_begin_read_from_stdio(png_image *image, FILE *file);
 
 /**
- * TODO
+ * @brief Read the PNG header from a memory buffer
  * @param image png_image instance
- * @param memory TODO
- * @param size TODO
- * @return TODO
+ * @param memory buffer to read
+ * @param size buffer size
+ * @return 1 if PNG header was read successfully, 0 otherwise.
  * @memberof png_image
  * @ingroup simple_api
- * @since unknown
+ * @since 1.6.0
  */
 int png_image_begin_read_from_memory(png_image *image, const png_void *memory, size_t size);
 
 /**
- * TODO
+ * @brief Read the PNG data and clean up the png_image instance
  * @param image png_image instance
  * @param background TODO
  * @param buffer TODO
@@ -5032,51 +5084,51 @@ int png_image_begin_read_from_memory(png_image *image, const png_void *memory, s
  * @return TODO
  * @memberof png_image
  * @ingroup simple_api
- * @since unknown
+ * @since 1.6.0
  */
 int png_image_finish_read(png_image *image, const png_color *background, void *buffer, png_int_32 row_stride, void *colormap);
 
 /**
- * TODO
+ * @brief Free any data allocated by libpng in png_image::opaque.
  * @param image png_image instance
  * @memberof png_image
  * @ingroup simple_api
- * @since unknown
+ * @since 1.6.0
  */
 void png_image_free(png_image *image);
 
 /**
- * TODO
+ * @brief Write PNG as a file.
  * @param image png_image instance
- * @param file TODO
+ * @param file path to a PNG file
  * @param convert_to_8bit TODO
  * @param buffer TODO
  * @param row_stride TODO
  * @param colormap TODO
- * @return TODO
+ * @return 1 if PNG was written successfully, 0 otherwise.
  * @memberof png_image
  * @ingroup simple_api
- * @since unknown
+ * @since 1.6.0
  */
 int png_image_write_to_file(png_image *image, const char *file, int convert_to_8bit, const void *buffer, png_int_32 row_stride, const void *colormap);
 
 /**
- * TODO
+ * @brief Write PNG to a FILE object.
  * @param image png_image instance
- * @param file TODO
+ * @param file A pointer of FILE object
  * @param convert_to_8_bit TODO
  * @param buffer TODO
  * @param row_stride TODO
  * @param colormap TODO
- * @return TODO
+ * @return 1 if PNG was written successfully, 0 otherwise.
  * @memberof png_image
  * @ingroup simple_api
- * @since unknown
+ * @since 1.6.0
  */
 int png_image_write_to_stdio(png_image *image, FILE *file, int convert_to_8_bit, const void *buffer, png_int_32 row_stride, const void *colormap);
 
 /**
- * TODO
+ * @brief Write PNG to a memory buffer.
  * @param image png_image instance
  * @param memory TODO
  * @param memory_bytes TODO
@@ -5084,10 +5136,10 @@ int png_image_write_to_stdio(png_image *image, FILE *file, int convert_to_8_bit,
  * @param buffer TODO
  * @param row_stride TODO
  * @param colormap TODO
- * @return TODO
+ * @return 1 if PNG was written successfully, 0 otherwise.
  * @memberof png_image
  * @ingroup simple_api
- * @since unknown
+ * @since 1.6.22
  */
 int png_image_write_to_memory(png_image *image, void *memory, png_alloc_size_t *memory_bytes, int convert_to_8_bit, const void *buffer, png_int_32 row_stride, const void *colormap);
 

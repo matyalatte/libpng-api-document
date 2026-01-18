@@ -14,7 +14,7 @@ extern "C" {
 // ------ Pages ------
 /**
  * @defgroup simple_api Simplified API
- * @brief Functions to hide the details of both libpng and the PNG format.
+ * @brief PNG IO with hiding the details of libpng and file format.
  * @details See the manual: \ref simplified_api "Simplified API"
  */
 /**
