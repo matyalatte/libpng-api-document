@@ -4,6 +4,8 @@ unofficial API reference for libpng
 \warning
 libpng-api-document is a work in progress. Many functions are not yet documented. Contributions via pull requests are welcome.
 
+[![donate](https://img.shields.io/static/v1?label=donate&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/matyalatte)  
+
 ## About
 
 This is an unofficial documentation resource for [libpng 1.6.54](https://github.com/pnggroup/libpng/tree/v1.6.54). The official documentation is provided in plain-text format, which is easy for core developers to maintain but difficult for newcomers to read.
@@ -40,6 +42,12 @@ This project aims to fill in the `@brief` and `@since` attributes for each API.
 - \ref versioning
 - \ref other
 - \ref macro
+
+### External Links
+
+- [pnggroup/libpng](https://github.com/pnggroup/libpng): Official libpng repository
+- [PNG Home Site](https://www.libpng.org/pub/png/): Official web site for PNG
+- [matyalatte/libpng-loader](https://github.com/matyalatte/libpng-loader): Meta loader for libpng16
 
 ## Doxygen
 
