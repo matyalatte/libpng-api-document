@@ -13,14 +13,42 @@ extern "C" {
 // ------ Pages ------
 /**
  * @defgroup simple_api Simplified API
+ * @brief Functions to hide the details of both libpng and the PNG format.
+ * @details See the manual: \ref simplified_api "Simplified API"
+ */
+/**
  * @defgroup reader Reading
+ * @brief Functions to read PNG files
+ * @details See the manual: \ref reading "Reading"
+ */
+/**
  * @defgroup writer Writing
- * @defgroup setter Setter
+ * @brief Functions to write PNG files
+ * @details See the manual: \ref writing "Wrting"
+ */
+/**
  * @defgroup getter Getter
+ * @defgroup setter Setter
+ */
+/**
  * @defgroup progressive Progressive Read
+ * @brief Functions to read PNG files progressively
+ * @details See the manual: \ref manual_progressive
+ */
+/**
  * @defgroup error Error Handling
+ * @details See the manual: \ref manual_err_and_mem
+ */
+/**
  * @defgroup memory Memory Management
+ * @details See the manual: \ref manual_err_and_mem
+ */
+/**
  * @defgroup zlib Zlib Options
+ * @brief Functions for Zlib configurations
+ * @details See the manual: \ref manual_zlib
+ */
+/**
  * @defgroup versioning Versioning
  * @defgroup other Others
  * @defgroup macro Macros

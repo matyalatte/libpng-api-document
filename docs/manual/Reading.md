@@ -2423,7 +2423,7 @@ your application instead of by libpng, you can use
 
 For a more compact example of reading a PNG image, see the file example.c.
 
-## Reading PNG files progressively
+\subsection manual_progressive Reading PNG files progressively
 
 The progressive reader is slightly different from the non-progressive
 reader.  Instead of calling `png_read_info()`, `png_read_rows()`, and

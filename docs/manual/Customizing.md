@@ -13,7 +13,7 @@ Both of those are compile-time issues; that is, they are generally
 determined at the time the code is written, and there is rarely a need
 to provide the user with a means of changing them.
 
-## Memory allocation, input/output, and error handling
+\subsection manual_err_and_mem Memory allocation, input/output, and error handling
 
 All of the memory allocation, input/output, and error handling in libpng
 goes through callbacks that are user-settable.  The default routines are
@@ -165,7 +165,7 @@ as warnings.
 As of libpng-1.6.0, the default condition is to treat benign errors as
 warnings while reading and as errors while writing.
 
-## Custom chunks
+\subsection manual_zlib Custom chunks
 
 If you need to read or write custom chunks, you may need to get deeper
 into the libpng code.  The library now has mechanisms for storing
